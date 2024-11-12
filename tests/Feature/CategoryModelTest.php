@@ -34,3 +34,23 @@ describe('Category delete', function () {
         expect(Category::count())->toBe(0);
     });
 });
+
+describe('Category relations', function () {
+    it('should have a parent relation', function () {
+        $category = Category::factory()->create();
+        $parentCategory = Category::factory()->create();
+
+        $category->parent()->associate($parentCategory);
+        $category->save();
+
+        expect($category->parent_id)->toBe($parentCategory->id);
+    });
+
+    it('should have many children', function () {
+        $category = Category::factory()->create();
+        $childCategory = Category::factory()->create();
+        $category->children()->save($childCategory);
+
+        expect($category->children->count())->toBe(1);
+    });
+});
