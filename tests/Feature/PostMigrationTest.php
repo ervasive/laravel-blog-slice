@@ -30,5 +30,5 @@ it('should assign valid value to status column', function () {
 });
 
 it('should throw an exception on invalid status value', function () {
-    expect(fn() => Post::factory()->create(['status' => 'invalid']))->toThrow(ValueError::class);
+    expect(fn () => Post::factory()->create(['status' => 'invalid']))->toThrow(ValueError::class);
 });
