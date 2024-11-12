@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use App\Models\Post;
 
 describe('Post create', function () {
@@ -42,5 +43,15 @@ describe('Post delete', function () {
         $post->delete();
 
         expect(Post::count())->toBe(0);
+    });
+});
+
+describe('Post relationship', function () {
+    it('should have categories', function () {
+        $post = Post::factory()->create();
+        $category = Category::factory()->create();
+        $post->categories()->attach($category);
+
+        expect($post->categories()->count())->toBe(1);
     });
 });

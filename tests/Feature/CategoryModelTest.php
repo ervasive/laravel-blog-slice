@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use App\Models\Post;
 
 describe('Category create', function () {
     it('should create a category', function () {
@@ -52,5 +53,13 @@ describe('Category relations', function () {
         $category->children()->save($childCategory);
 
         expect($category->children->count())->toBe(1);
+    });
+
+    it('should have many posts', function () {
+        $category = Category::factory()->create();
+        $post = Post::factory()->create();
+        $category->posts()->save($post);
+
+        expect($category->posts->count())->toBe(1);
     });
 });
